@@ -1,4 +1,4 @@
-export default (state={trainer:[], loading: false}, action) => {
+export default (state={trainers:[], loading: false}, action) => {
     switch(action.type){
         default: 
         return state;
