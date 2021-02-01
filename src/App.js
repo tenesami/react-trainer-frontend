@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './App.css';
 import { connect } from 'react-redux' 
+import {getTrainers} from './Actions/trainers'
 
 class App extends Component  {
   render(){
@@ -30,5 +31,5 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, {getTrainers})(App);
 
