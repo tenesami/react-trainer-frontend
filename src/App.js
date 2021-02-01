@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import React, {Component} from 'react'
 import './App.css';
+import { connect } from 'react-redux' 
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component  {
+  render(){
+    const trainersLi = this.props.trainers.map(td => <li key={td.id}> {td.name}</li>)
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h2>Create trainer</h2>
+          <hr/>
+          <h1>Our Trainers</h1>
+
+          <ul>
+              {this.props.loading ? <h3>Lodding...</h3> : trainersLi}
+          </ul>
+          
+        </header>
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  console.log("I am state", state)
+  return {
+    trainers: state.trainerReducer.trainers,
+    loading: state.trainerReducer.loading
+  }
+}
+
+export default connect(mapStateToProps)(App);
+
