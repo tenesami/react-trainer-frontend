@@ -1,33 +1,44 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {addTrainer} from '../Actions/trainers';
+import {connect} from 'react-redux';
 
-class trainerForm extends Component {
+class TrainerForm extends Component {
     state = {
-        trainers: {name: ""},
-        loading: false,
+        trainer: {t_name: ""},
+        loading: false
     }
     
     handleOnChange = (e) => {
-        this.setState({
-            name: e.target.value
+        this.setState({...this.state,
+           trainer: { ...this.state.trainer,
+               t_name: e.target.value
+            }
         })
     }
 
-    handleOnSubmit =(e) => {
+    handleOnSubmit = (e) => {
         e.preventDefault()
-        const trainer = {...this.state.trainer}
-        console.log(trainer)
+        const trainer = {...this.state,}
+        
+        this.props.addTrainer(trainer)
+        this.setState({
+            trainer: {t_name: ""},
+        loading: false
+        })
     }
+    
     render() {
         return (
             <div>
-                <from onSubmit={this.handleOnSubmit}>
-                    <input type="text" value={this.state.trainers.name} 
+                <form onSubmit={this.handleOnSubmit}>
+                    <input type="text" value={this.state.trainer.t_name} 
                     onChange={this.handleOnChange}/>
-                    <button type={submit}> Add Trainer</button>
-
-                </from>
+                    <button type="submit"> Add Trainer</button>
+                </form>
             </div>
         )
     }
 }
-export default trainerForm;
+
+
+export default connect(null, {addTrainer})(TrainerForm);

@@ -2,23 +2,29 @@ import React, {Component} from 'react'
 import './App.css';
 import { connect } from 'react-redux' 
 import {getTrainers} from './Actions/trainers'
+import TrainerForm from './Containers/TrainerForm'
 
-class App extends Component  {
+class App extends Component {
+  
+  componentDidMount(){
+    this.props.getTrainers()
+  }
+
   render(){
-    const trainersLi = this.props.trainers.map(td => <li key={td.id}> {td.name}</li>)
+    const trainersLi = this.props.trainers.map(td => <li key={td.id}> {td.t_name}</li>)
     return (
       <div className="App">
-        <header className="App-header">
+
           <h2>Create trainer</h2>
+          <TrainerForm/>
           <hr/>
           <h1>Our Trainers</h1>
 
           <ul>
-              {this.props.loading ? <h3>Lodding...</h3> : trainersLi}
-          </ul>
-          
-        </header>
+              <h3>{this.props.loading ? <h3>Lodding...</h3> : trainersLi}</h3>
+          </ul>   
       </div>
+     
     );
   }
 }
@@ -32,4 +38,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, {getTrainers})(App);
+
+
 
